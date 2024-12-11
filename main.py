@@ -1,9 +1,10 @@
 import pygame
 import random as rand
+from world import World
+from enemies import *
+from items import *
 
 pygame.init()
-
-
 
 
 NUM_ROWS = 12
@@ -14,8 +15,7 @@ HEIGHT = CELL_SIZE * NUM_ROWS
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-dirt = pygame.image.load('dungeon/Tiles/tile_0000.png')
-dirt = pygame.transform.scale(dirt, (64, 64))
+
 
 wall = pygame.image.load('dungeon/Tiles/tile_0037.png')
 wall = pygame.transform.scale(wall, (64, 64))
@@ -35,8 +35,7 @@ sword = pygame.transform.scale(armor, (64, 64))
 # top_right = pygame.image.load('dungeon/Tiles/tile_0005.png')
 # top_right = pygame.transform.scale(dirt, (64, 64))
 
-rocks = pygame.image.load('dungeon/Tiles/tile_0024.png')
-rocks = pygame.transform.scale(rocks, (64, 64))
+
 
 player_armor1 = pygame.image.load('dungeon/Tiles/tile_0085.png')
 player_armor1 = pygame.transform.scale(player_armor1, (64, 64))
@@ -50,12 +49,7 @@ player_armor3 = pygame.transform.scale(player_armor3, (64, 64))
 player_armor4 = pygame.image.load('dungeon/Tiles/tile_0096.png')
 player_armor4 = pygame.transform.scale(player_armor4, (64, 64))
 
-class Bat:
 
-    def __init__(self, x, y):
-        self.image = pygame.image.load('dungeon/Tiles/tile_0120.png')
-        self.image = pygame.transform.scale(self.image, (64, 64))
-        self.position = (x, y)
 
 class Player:
 
@@ -78,10 +72,13 @@ class Player:
         self.position = (self.position[0], self.position[1] + 64)
 
 
+class Student:
 
-player = Player()
-bat = Bat(500, 500)
-game_world = World()
+    def __init__(self, name):
+        self.name = name
+
+
+
 
 # player_sprite = pygame.sprite.Sprite()
 # player_sprite.image = player_image
@@ -93,13 +90,21 @@ game_world = World()
 
 
 
+player = Player()
+bat = Bat(500, 500)
+rat = Rat(100, 200)
+spider = Spider(200, 200)
 
+armor = Armor (50, 50)
+sword = Sword(75, 75)
+health_pot = HealthPot(300, 75)
+game_world = World(NUM_ROWS, NUM_COLS)
 
 
 while True:
     screen.fill(0)
 
-    game_world.draw_world()
+    game_world.draw_world(screen)
     screen.blit(player.image, player.position)
     screen.blit(bat.image, bat.position)
 
@@ -107,8 +112,18 @@ while True:
     screen.blit(player_armor2, (300, 350))
     screen.blit(player_armor3, (300, 400))
     screen.blit(player_armor4, (300, 400))
-    screen.blit(bat.image, bat.position)
-    screen.blit(armor, (400, 300))
+
+    # enemies
+    bat.draw(screen)
+    rat.draw(screen)
+    spider.draw(screen)
+
+    # items
+    armor.draw(screen)
+    sword.draw(screen)
+    health_pot.draw(screen)
+
+
 
 
     for event in pygame.event.get():
@@ -164,7 +179,6 @@ while True:
 
     if keys[pygame.K_RIGHT] and player_sprite.rect.right < screen_width:
         player_sprite.rect.x += player_speed
-
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
