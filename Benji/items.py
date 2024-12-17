@@ -1,7 +1,17 @@
 import pygame
+from game_object import GameObject
 
-class Armor:
+class Armor(GameObject):
 
     def __init__(self):
-        self.image = pygame.image.load('../dungeon/Tiles/tile_0102.png')
-        self.image = pygame.transform.scale(self.image, (64, 64))
+        GameObject.__init__(self, '../dungeon/Tiles/tile_0102.png')
+
+class Sword:
+
+    def __init__(self):
+        GameObject.__init__(self, 'dungeon/Tiles/tile_0103.png')
+
+class HealthPot:
+
+    def __init__(self):
+        GameObject.__init__(self, 'dungeon/Tiles/tile_0127.png')

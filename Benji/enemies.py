@@ -1,26 +1,23 @@
 import pygame
+from game_object import GameObject
 
-class Enemy:
+class Enemy(GameObject):
 
-    def __init__(self, image, x, y):
-        self.image = image
-        self.image = pygame.transform.scale(self.image, (64, 64))
-        self.position = (x, y)
+    def __init__(self, image_location):
+        GameObject.__init__(self, image_location)
 
-    def draw(self, screen):
-        screen.blit(self.image, self.position)
 
 class Bat(Enemy):
 
-    def __init__(self, x, y):
-        Enemy.__init__(self, pygame.image.load('../dungeon/Tiles/tile_0120.png'), x, y)
+    def __init__(self):
+        Enemy.__init__(self, '../dungeon/Tiles/tile_0120.png')
 
 class Rat(Enemy):
 
-    def __init__(self, x, y):
-        Enemy.__init__(self, pygame.image.load('../dungeon/Tiles/tile_0123.png'), x, y)
+    def __init__(self):
+        Enemy.__init__(self, '../dungeon/Tiles/tile_0123.png')
 
 class Spider(Enemy):
 
-    def __init__(self, x, y):
-        Enemy.__init__(self, pygame.image.load('../dungeon/Tiles/tile_0122.png'), x, y)
+    def __init__(self):
+        Enemy.__init__(self, '../dungeon/Tiles/tile_0122.png')

@@ -49,7 +49,7 @@ sword = pygame.transform.scale(sword, (64, 64))
 
 
 player = Player()
-bat = Bat(500, 500)
+bat = Bat()
 
 # player_sprite = pygame.sprite.Sprite()
 # player_sprite.image = player_image
@@ -72,7 +72,7 @@ while True:
 
     game_world.draw_world(screen)
     player.draw(screen)
-    bat.draw(screen)
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
