@@ -1,8 +1,13 @@
 import pygame
+from game_object import GameObject
+from settings import *
 
-class Player:
+class Player(GameObject):
 
     def __init__(self):
+        GameObject.__init__(self,'../dungeon/Tiles/tile_0088.png', Type.PLAYER)
+        self.row = PLAYER_START[0]
+        self.col = PLAYER_START[1]
         player_armor0 = pygame.image.load('../dungeon/Tiles/tile_0088.png')
         player_armor0 = pygame.transform.scale(player_armor0, (64, 64))
 

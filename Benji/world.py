@@ -3,6 +3,7 @@ import random as rand
 from items import *
 from settings import *
 
+
 class CellData:
 
     def __init__(self, tile):
@@ -32,6 +33,9 @@ class World:
 
     def add_object_to_cell(self, object, row, col):
         self.world[row][col].object = object
+
+    def remove_game_object(self, row, col):
+        self.world[row][col].object = None
 
     def can_pass(self):
         return True
@@ -75,7 +79,10 @@ class World:
                 self.empty_tiles.append((i, j))
             self.world.append(row)
 
+        # remove starting point for player
+        self.empty_tiles.remove(PLAYER_START)
         self.generate_items()
+
 
     def draw_world(self, screen):
         for i in range(self.rows):

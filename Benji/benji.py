@@ -60,18 +60,29 @@ bat = Bat()
 
 
 
+class Game:
 
+    def __init__(self, world, player):
+        self.world = world
+        self.player = player
 
+    def interact(self, direction):
+        print('player tries to interact with ', direction)
+        pass
 
 game_world = World()
 game_world.generate_world()
+
+game_world.add_object_to_cell(player, 1, 1)
+
+game = Game(game_world, player)
+
 
 
 while True:
     screen.fill(0)
 
     game_world.draw_world(screen)
-    player.draw(screen)
 
 
     for event in pygame.event.get():
@@ -80,16 +91,16 @@ while True:
             exit(0)
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-            player.move_right()
+            game.interact(Direction.RIGHT)
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_a:
-            player.move_left()
+            game.interact(Direction.LEFT)
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
-            player.move_up()
+            game.interact(Direction.UP)
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-            player.move_down()
+            game.interact(Direction.DOWN)
 
 
     pygame.display.update()
