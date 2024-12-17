@@ -3,6 +3,12 @@ import random as rand
 from items import *
 from settings import *
 
+class CellData:
+
+    def __init__(self, tile):
+        self.tile = tile
+        self.object = None
+
 class World:
 
     def __init__(self):
@@ -10,7 +16,7 @@ class World:
         self.cols = 12
         self.world = []
         self.empty_tiles = []
-        self.item_map = [[None for i in range(self.cols)] for j in range(self.rows)]
+        # self.item_map = [[None for i in range(self.cols)] for j in range(self.rows)]
 
         self.dirt = pygame.image.load('../dungeon/Tiles/tile_0048.png')
         self.dirt = pygame.transform.scale(self.dirt, (64, 64))
@@ -24,7 +30,8 @@ class World:
         self.wall = pygame.image.load('../dungeon/Tiles/tile_0037.png')
         self.wall = pygame.transform.scale(self.wall, (64, 64))
 
-
+    def add_object_to_cell(self, object, row, col):
+        self.world[row][col].object = object
 
     def can_pass(self):
         return True
@@ -44,7 +51,7 @@ class World:
             random_cell = rand.choice(self.empty_tiles)
             self.empty_tiles.remove(random_cell)
             armor = Armor()
-            self.item_map[random_cell[0]][random_cell[1]] = armor
+            self.add_object_to_cell(armor, random_cell[0], random_cell[1])
 
 
     def generate_world(self):
@@ -59,11 +66,11 @@ class World:
                 # else:
                 r = rand.randint(0, 100)
                 if r < 10:
-                    row.append(self.rocks)
+                    row.append(CellData(self.rocks))
                 elif r < 12:
-                    row.append(self.big_rocks)
+                    row.append(CellData(self.big_rocks))
                 else:
-                    row.append(self.dirt)
+                    row.append(CellData(self.dirt))
 
                 self.empty_tiles.append((i, j))
             self.world.append(row)
@@ -73,7 +80,7 @@ class World:
     def draw_world(self, screen):
         for i in range(self.rows):
             for j in range(self.cols):
-                screen.blit(self.world[i][j], (j * CELL_SIZE, i * CELL_SIZE))
+                screen.blit(self.world[i][j].tile, (j * CELL_SIZE, i * CELL_SIZE))
 
-                if self.item_map[i][j] is not None:
-                    screen.blit(self.item_map[i][j].image, (j * CELL_SIZE, i * CELL_SIZE))
+                if self.world[i][j].object is not None:
+                    screen.blit(self.world[i][j].object.image, (j * CELL_SIZE, i * CELL_SIZE))

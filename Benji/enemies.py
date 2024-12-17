@@ -1,10 +1,10 @@
-import pygame
+from settings import *
 from game_object import GameObject
 
 class Enemy(GameObject):
 
     def __init__(self, image_location):
-        GameObject.__init__(self, image_location)
+        GameObject.__init__(self, image_location, Type.ENEMY)
 
 
 class Bat(Enemy):

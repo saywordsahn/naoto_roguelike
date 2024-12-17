@@ -5,6 +5,7 @@ from Benji.settings import CELL_SIZE
 
 class GameObject:
 
-    def __init__(self, file_location):
+    def __init__(self, file_location, type):
         self.image = pygame.image.load(file_location)
         self.image = pygame.transform.scale(self.image, (CELL_SIZE, CELL_SIZE))
+        self.type = type
