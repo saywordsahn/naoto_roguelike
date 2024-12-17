@@ -35,3 +35,6 @@ class Player:
 
     def move_down(self):
         self.position = (self.position[0], self.position[1] + 64)
+
+    def draw(self, screen):
+        screen.blit(self.image, self.position)

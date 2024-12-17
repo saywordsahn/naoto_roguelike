@@ -71,9 +71,8 @@ while True:
     screen.fill(0)
 
     game_world.draw_world(screen)
-    screen.blit(player.image, player.position)
-    screen.blit(bat.image, bat.position)
-    screen.blit(bat.image, bat.position)
+    player.draw(screen)
+    bat.draw(screen)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
