@@ -4,6 +4,7 @@ from settings import *
 from enemies import *
 from player import *
 from world import *
+from game import *
 
 pygame.init()
 
@@ -15,11 +16,6 @@ WIDTH = CELL_SIZE * NUM_COLS
 HEIGHT = CELL_SIZE * NUM_ROWS
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
-
-
-
-
 
 sword = pygame.image.load('../dungeon/Tiles/tile_0103.png')
 sword = pygame.transform.scale(sword, (64, 64))
@@ -35,31 +31,8 @@ sword = pygame.transform.scale(sword, (64, 64))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 player = Player()
 bat = Bat()
-
-# player_sprite = pygame.sprite.Sprite()
-# player_sprite.image = player_image
-# player_sprite.rect = player_image.get_rect()
-# player_sprite.rect.centerx = 50
-# player_sprite.rect.bottom = 50
-# player_speed = 8
-
-
-
 
 class UI:
 
@@ -71,38 +44,7 @@ class UI:
         letter_text = self.font.render('HP: ' + str(self.player_hp), True, (255,255,255))
         screen.blit(letter_text, (10, 10))
 
-class Game:
 
-    def __init__(self, world, player, ui):
-        self.world = world
-        self.player = player
-        self.ui = ui
-
-    def interact(self, direction):
-
-        obj = self.world.get_adjacent_object(self.player.row, self.player.col, direction)
-
-        if obj is not None:
-
-            if obj.type == Type.ITEM:
-                player.pick_up_item(obj)
-                self.move_player(direction)
-            elif obj.type == Type.ENEMY:
-                obj.take_damage(player.attack_damage)
-                if obj.hp <= 0:
-                    self.world.remove_game_object(self.player.row, self.player.col, direction)
-                    self.move_player(direction)
-        else:
-            self.move_player(direction)
-
-
-    def move_player(self, direction):
-        self.world.move_object(self.player.row, self.player.col, direction)
-        self.player.move(direction)
-
-    def draw(self, screen):
-        self.world.draw_world(screen)
-        self.ui.draw(screen)
 
 game_world = World()
 game_world.generate_world()
