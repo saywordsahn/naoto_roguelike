@@ -80,7 +80,7 @@ class World:
         self.world[position[0]][position[1]].object = None
 
     def remove_game_object(self, position, direction):
-        cell = self.get_adjacent_cell(position[0], position[1], direction)
+        cell = self.get_adjacent_cell(position, direction)
         cell.obj = None
 
     def can_pass(self):
