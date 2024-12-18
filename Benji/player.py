@@ -7,6 +7,7 @@ class Player(GameObject):
 
     def __init__(self):
         GameObject.__init__(self, '../dungeon/Tiles/tile_0088.png', Type.PLAYER)
+        self.position = PLAYER_START
         self.row = PLAYER_START[0]
         self.col = PLAYER_START[1]
         self.hp = PLAYER_STARTING_HP
@@ -47,12 +48,16 @@ class Player(GameObject):
 
         if direction == Direction.RIGHT:
             self.col += 1
+            self.position = (self.position[0], self.position[1] + 1)
         elif direction == Direction.LEFT:
             self.col -= 1
+            self.position = (self.position[0], self.position[1] - 1)
         elif direction == Direction.UP:
             self.row -= 1
+            self.position = (self.position[0] - 1, self.position[1])
         elif direction == Direction.DOWN:
             self.row += 1
+            self.position = (self.position[0] + 1, self.position[1])
 
     # def move_right(self):
     #     self.position = (self.position[0] + 64, self.position[1])

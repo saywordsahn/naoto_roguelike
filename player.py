@@ -1,4 +1,5 @@
 import pygame
+from settings import *
 
 class Player:
 
@@ -6,7 +7,7 @@ class Player:
         self.image = pygame.image.load('dungeon/Tiles/tile_0088.png')
 
         self.image = pygame.transform.scale(self.image, (64, 64))
-        self.position = (0, 0)
+        self.position = PLAYER_START
 
     def move_right(self):
         self.position = (self.position[0] + 64, self.position[1])

@@ -7,7 +7,8 @@ from settings import *
 
 class CellData:
 
-    def __init__(self, tile):
+    def __init__(self, tile, pos):
+        self.position = pos
         self.tile = tile
         self.object = None
 
@@ -18,6 +19,7 @@ class World:
         self.cols = 12
         self.world = []
         self.empty_tiles = []
+
         # self.item_map = [[None for i in range(self.cols)] for j in range(self.rows)]
 
         self.dirt = pygame.image.load('../dungeon/Tiles/tile_0048.png')
@@ -41,6 +43,18 @@ class World:
             return self.world[row - 1][col]
         elif direction == Direction.DOWN:
             return self.world[row + 1][col]
+
+    def get_cells_with_enemies(self):
+
+        cells_with_enemies = []
+
+        for i in range(NUM_ROWS):
+            for j in range(NUM_COLS):
+                cell = self.world[i][j]
+                if cell.object is not None and cell.object.type == Type.ENEMY:
+                    cells_with_enemies.append(cell)
+
+        return cells_with_enemies
 
     def get_adjacent_object(self, row, col, direction):
         return self.get_adjacent_cell(row, col, direction).object
@@ -97,7 +111,6 @@ class World:
             enemy = Spider()
             self.add_object_to_cell(enemy, random_cell[0], random_cell[1])
 
-
     def generate_world(self):
 
         for i in range(self.rows):
@@ -110,11 +123,11 @@ class World:
                 # else:
                 r = rand.randint(0, 100)
                 if r < 10:
-                    row.append(CellData(self.rocks))
+                    row.append(CellData(self.rocks, (i, j)))
                 elif r < 12:
-                    row.append(CellData(self.big_rocks))
+                    row.append(CellData(self.big_rocks, (i, j)))
                 else:
-                    row.append(CellData(self.dirt))
+                    row.append(CellData(self.dirt, (i, j)))
 
                 self.empty_tiles.append((i, j))
             self.world.append(row)

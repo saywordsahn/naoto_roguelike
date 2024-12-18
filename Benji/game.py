@@ -25,6 +25,20 @@ class Game:
         else:
             self.move_player(direction)
 
+        self.enemy_turn()
+
+    def enemy_turn(self):
+        print('enemy turns')
+
+        for cell in self.world.get_cells_with_enemies():
+            print(self.player.position)
+            direction = cell.object.get_movement(cell.position, self.world, self.player.position)
+
+            if direction is not None:
+                self.world.move_object(cell.position[0], cell.position[1], direction)
+
+
+
     def move_player(self, direction):
         self.world.move_object(self.player.row, self.player.col, direction)
         self.player.move(direction)
