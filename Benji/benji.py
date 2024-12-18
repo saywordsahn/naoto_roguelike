@@ -60,29 +60,68 @@ bat = Bat()
 
 
 
+
+class UI:
+
+    def __init__(self):
+        self.font = pygame.font.SysFont('Helvetica', 24)
+        self.player_hp = PLAYER_STARTING_HP
+
+    def draw(self, screen):
+        letter_text = self.font.render('HP: ' + str(self.player_hp), True, (255,255,255))
+        screen.blit(letter_text, (10, 10))
+
 class Game:
 
-    def __init__(self, world, player):
+    def __init__(self, world, player, ui):
         self.world = world
         self.player = player
+        self.ui = ui
 
     def interact(self, direction):
-        print('player tries to interact with ', direction)
-        pass
+
+        obj = self.world.get_adjacent_object(self.player.row, self.player.col, direction)
+
+        if obj is not None:
+
+            if obj.type == Type.ITEM:
+                player.pick_up_item(obj)
+                self.move_player(direction)
+            elif obj.type == Type.ENEMY:
+                obj.take_damage(player.attack_damage)
+                if obj.hp <= 0:
+                    self.world.remove_game_object(self.player.row, self.player.col, direction)
+                    self.move_player(direction)
+        else:
+            self.move_player(direction)
+
+
+    def move_player(self, direction):
+        self.world.move_object(self.player.row, self.player.col, direction)
+        self.player.move(direction)
+
+    def draw(self, screen):
+        self.world.draw_world(screen)
+        self.ui.draw(screen)
 
 game_world = World()
 game_world.generate_world()
+game_world.generate_enemies()
 
 game_world.add_object_to_cell(player, 1, 1)
 
-game = Game(game_world, player)
+ui = UI()
+
+game = Game(game_world, player, ui)
+
 
 
 
 while True:
     screen.fill(0)
 
-    game_world.draw_world(screen)
+    game.draw(screen)
+
 
 
     for event in pygame.event.get():

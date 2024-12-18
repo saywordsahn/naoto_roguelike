@@ -4,6 +4,12 @@ NUM_ROWS = 12
 NUM_COLS = 12
 CELL_SIZE = 64
 PLAYER_START = (1, 1)
+PLAYER_STARTING_HP = 10
+
+class ItemType(Enum):
+    ARMOR = 0,
+    SWORD = 1,
+    HEALTHPOT = 2
 
 class Type(Enum):
     PLAYER = 0,

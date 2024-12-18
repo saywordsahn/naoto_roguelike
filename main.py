@@ -3,15 +3,12 @@ import random as rand
 from world import World
 from enemies import *
 from items import *
+from settings import *
+from player import Player
 
 pygame.init()
 
 
-NUM_ROWS = 12
-NUM_COLS = 12
-CELL_SIZE = 64
-WIDTH = CELL_SIZE * NUM_COLS
-HEIGHT = CELL_SIZE * NUM_ROWS
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -51,25 +48,7 @@ player_armor4 = pygame.transform.scale(player_armor4, (64, 64))
 
 
 
-class Player:
 
-    def __init__(self):
-        self.image = pygame.image.load('dungeon/Tiles/tile_0088.png')
-
-        self.image = pygame.transform.scale(self.image, (64, 64))
-        self.position = (0, 0)
-
-    def move_right(self):
-        self.position = (self.position[0] + 64, self.position[1])
-
-    def move_left(self):
-        self.position = (self.position[0] - 64, self.position[1])
-
-    def move_up(self):
-        self.position = (self.position[0], self.position[1] - 64)
-
-    def move_down(self):
-        self.position = (self.position[0], self.position[1] + 64)
 
 
 class Student:
@@ -91,39 +70,36 @@ class Student:
 
 
 player = Player()
-bat = Bat(500, 500)
-rat = Rat(100, 200)
-spider = Spider(200, 200)
+
+rat = Rat()
+spider = Spider()
 
 armor = Armor (50, 50)
 sword = Sword(75, 75)
 health_pot = HealthPot(300, 75)
-game_world = World(NUM_ROWS, NUM_COLS)
+game_world = World()
 
 
 while True:
     screen.fill(0)
 
-    game_world.draw_world(screen)
+    game_world.draw_tiles(screen)
+    game_world.draw_enemies(screen)
     screen.blit(player.image, player.position)
-    screen.blit(bat.image, bat.position)
 
-    screen.blit(player_armor1, (300, 300))
-    screen.blit(player_armor2, (300, 350))
-    screen.blit(player_armor3, (300, 400))
-    screen.blit(player_armor4, (300, 400))
+
+    # screen.blit(player_armor1, (300, 300))
+    # screen.blit(player_armor2, (300, 350))
+    # screen.blit(player_armor3, (300, 400))
+    # screen.blit(player_armor4, (300, 400))
 
     # enemies
-    bat.draw(screen)
-    rat.draw(screen)
-    spider.draw(screen)
+
 
     # items
     armor.draw(screen)
     sword.draw(screen)
     health_pot.draw(screen)
-
-
 
 
     for event in pygame.event.get():

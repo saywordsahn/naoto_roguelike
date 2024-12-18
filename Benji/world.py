@@ -1,6 +1,7 @@
 import pygame
 import random as rand
 from items import *
+from enemies import *
 from settings import *
 
 
@@ -31,11 +32,42 @@ class World:
         self.wall = pygame.image.load('../dungeon/Tiles/tile_0037.png')
         self.wall = pygame.transform.scale(self.wall, (64, 64))
 
+    def get_adjacent_cell(self, row, col, direction):
+        if direction == Direction.RIGHT:
+            return self.world[row][col + 1]
+        elif direction == Direction.LEFT:
+            return self.world[row][col - 1]
+        elif direction == Direction.UP:
+            return self.world[row - 1][col]
+        elif direction == Direction.DOWN:
+            return self.world[row + 1][col]
+
+    def get_adjacent_object(self, row, col, direction):
+        return self.get_adjacent_cell(row, col, direction).object
+
+    def move_object(self, row, col, direction):
+        if direction == Direction.RIGHT:
+            self.world[row][col + 1].object = self.world[row][col].object
+            self.world[row][col].object = None
+        elif direction == Direction.LEFT:
+            self.world[row][col - 1].object = self.world[row][col].object
+            self.world[row][col].object = None
+        elif direction == Direction.UP:
+            self.world[row - 1][col].object = self.world[row][col].object
+            self.world[row][col].object = None
+        elif direction == Direction.DOWN:
+            self.world[row + 1][col].object = self.world[row][col].object
+            self.world[row][col].object = None
+
     def add_object_to_cell(self, object, row, col):
         self.world[row][col].object = object
 
     def remove_game_object(self, row, col):
         self.world[row][col].object = None
+
+    def remove_game_object(self, row, col, direction):
+        cell = self.get_adjacent_cell(row, col, direction)
+        cell.obj = None
 
     def can_pass(self):
         return True
@@ -56,6 +88,14 @@ class World:
             self.empty_tiles.remove(random_cell)
             armor = Armor()
             self.add_object_to_cell(armor, random_cell[0], random_cell[1])
+
+    def generate_enemies(self):
+
+        for i in range(rand.randint(3, 5)):
+            random_cell = rand.choice(self.empty_tiles)
+            self.empty_tiles.remove(random_cell)
+            enemy = Spider()
+            self.add_object_to_cell(enemy, random_cell[0], random_cell[1])
 
 
     def generate_world(self):
