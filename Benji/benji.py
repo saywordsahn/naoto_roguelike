@@ -26,7 +26,7 @@ sword = pygame.transform.scale(sword, (64, 64))
 # top_left = pygame.image.load('dungeon/Tiles/tile_0004.png')
 # top_left = pygame.transform.scale(dirt, (64, 64))
 #
-# top_right = pygame.image.load('dungeon/Tiles/tile_0005.png')
+# top_right = pygame.image.load('dungeon/Tilewws/tile_0005.png')
 # top_right = pygame.transform.scale(dirt, (64, 64))
 
 

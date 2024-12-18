@@ -18,6 +18,22 @@ class Enemy(GameObject):
             if world.get_adjacent_object(position, Direction.RIGHT) is None:
                 return Direction.RIGHT
 
+        elif player_position[1] < position[1] and position[1] > 0:
+
+            if world.get_adjacent_object(position, Direction.LEFT) is None:
+                return Direction.LEFT
+
+        elif player_position[0] < position[0] and position[0] > 0:
+
+            if world.get_adjacent_object(position, Direction.UP) is None:
+                return Direction.UP
+
+        elif player_position[0] > position[0] and position[0] < NUM_ROWS - 1:
+
+            if world.get_adjacent_object(position, Direction.DOWN) is None:
+                return Direction.DOWN
+
+
         return None
 
 

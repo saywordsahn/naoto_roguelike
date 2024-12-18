@@ -28,10 +28,8 @@ class Game:
         self.enemy_turn()
 
     def enemy_turn(self):
-        print('enemy turns')
 
         for cell in self.world.get_cells_with_enemies():
-            print(self.player.position)
             direction = cell.object.get_movement(cell.position, self.world, self.player.position)
 
             if direction is not None:
