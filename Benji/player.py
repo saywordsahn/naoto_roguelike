@@ -2,10 +2,11 @@ import pygame
 from game_object import GameObject
 from settings import *
 
+
 class Player(GameObject):
 
     def __init__(self):
-        GameObject.__init__(self,'../dungeon/Tiles/tile_0088.png', Type.PLAYER)
+        GameObject.__init__(self, '../dungeon/Tiles/tile_0088.png', Type.PLAYER)
         self.row = PLAYER_START[0]
         self.col = PLAYER_START[1]
         self.hp = PLAYER_STARTING_HP
@@ -32,10 +33,10 @@ class Player(GameObject):
         self.image = pygame.transform.scale(self.image, (64, 64))
         self.position = (0, 0)
 
-
     def upgrade_armor(self):
         self.armor_level += 1
-        self.image = self.images[self.armor_level]
+        if self.armor_level < len(self.images):
+            self.image = self.images[self.armor_level]
 
     def pick_up_item(self, item):
 
