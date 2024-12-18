@@ -15,8 +15,8 @@ class CellData:
 class World:
 
     def __init__(self):
-        self.rows = 12
-        self.cols = 12
+        self.rows = NUM_ROWS
+        self.cols = NUM_COLS
         self.world = []
         self.empty_tiles = []
 

@@ -9,12 +9,6 @@ from game import *
 pygame.init()
 
 
-# NUM_ROWS = 12
-# NUM_COLS = 12
-# CELL_SIZE = 64
-WIDTH = CELL_SIZE * NUM_COLS
-HEIGHT = CELL_SIZE * NUM_ROWS
-
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 sword = pygame.image.load('../dungeon/Tiles/tile_0103.png')

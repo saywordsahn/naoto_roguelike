@@ -1,10 +1,12 @@
 from enum import Enum
 
-NUM_ROWS = 12
-NUM_COLS = 12
+NUM_ROWS = 14
+NUM_COLS = 22
 CELL_SIZE = 64
 PLAYER_START = (1, 1)
 PLAYER_STARTING_HP = 10
+WIDTH = CELL_SIZE * NUM_COLS
+HEIGHT = CELL_SIZE * NUM_ROWS
 
 class ItemType(Enum):
     ARMOR = 0,
