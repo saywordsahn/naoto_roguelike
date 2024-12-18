@@ -15,7 +15,7 @@ class Enemy(GameObject):
 
         if player_position[1] > position[1] and position[1] < NUM_COLS - 1:
 
-            if world.get_adjacent_object(position[0], position[1], Direction.RIGHT) is None:
+            if world.get_adjacent_object(position, Direction.RIGHT) is None:
                 return Direction.RIGHT
 
         return None

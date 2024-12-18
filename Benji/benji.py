@@ -49,7 +49,6 @@ class UI:
 game_world = World()
 game_world.generate_world()
 game_world.generate_enemies()
-
 game_world.add_object_to_cell(player, 1, 1)
 
 ui = UI()

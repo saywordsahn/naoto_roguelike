@@ -8,8 +8,6 @@ class Player(GameObject):
     def __init__(self):
         GameObject.__init__(self, '../dungeon/Tiles/tile_0088.png', Type.PLAYER)
         self.position = PLAYER_START
-        self.row = PLAYER_START[0]
-        self.col = PLAYER_START[1]
         self.hp = PLAYER_STARTING_HP
         self.armor_level = 0
         self.attack_damage = 1
@@ -32,7 +30,6 @@ class Player(GameObject):
 
         self.image = self.images[self.armor_level]
         self.image = pygame.transform.scale(self.image, (64, 64))
-        self.position = (0, 0)
 
     def upgrade_armor(self):
         self.armor_level += 1
@@ -47,29 +44,10 @@ class Player(GameObject):
     def move(self, direction):
 
         if direction == Direction.RIGHT:
-            self.col += 1
             self.position = (self.position[0], self.position[1] + 1)
         elif direction == Direction.LEFT:
-            self.col -= 1
             self.position = (self.position[0], self.position[1] - 1)
         elif direction == Direction.UP:
-            self.row -= 1
             self.position = (self.position[0] - 1, self.position[1])
         elif direction == Direction.DOWN:
-            self.row += 1
             self.position = (self.position[0] + 1, self.position[1])
-
-    # def move_right(self):
-    #     self.position = (self.position[0] + 64, self.position[1])
-    #
-    # def move_left(self):
-    #     self.position = (self.position[0] - 64, self.position[1])
-    #
-    # def move_up(self):
-    #     self.position = (self.position[0], self.position[1] - 64)
-    #
-    # def move_down(self):
-    #     self.position = (self.position[0], self.position[1] + 64)
-
-    def draw(self, screen):
-        screen.blit(self.image, self.position)

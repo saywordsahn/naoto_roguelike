@@ -34,15 +34,15 @@ class World:
         self.wall = pygame.image.load('../dungeon/Tiles/tile_0037.png')
         self.wall = pygame.transform.scale(self.wall, (64, 64))
 
-    def get_adjacent_cell(self, row, col, direction):
+    def get_adjacent_cell(self, position, direction):
         if direction == Direction.RIGHT:
-            return self.world[row][col + 1]
+            return self.world[position[0]][position[1] + 1]
         elif direction == Direction.LEFT:
-            return self.world[row][col - 1]
+            return self.world[position[0]][position[1] - 1]
         elif direction == Direction.UP:
-            return self.world[row - 1][col]
+            return self.world[position[0] - 1][position[1]]
         elif direction == Direction.DOWN:
-            return self.world[row + 1][col]
+            return self.world[position[0] + 1][position[1]]
 
     def get_cells_with_enemies(self):
 
@@ -56,31 +56,31 @@ class World:
 
         return cells_with_enemies
 
-    def get_adjacent_object(self, row, col, direction):
-        return self.get_adjacent_cell(row, col, direction).object
+    def get_adjacent_object(self, position, direction):
+        return self.get_adjacent_cell(position, direction).object
 
-    def move_object(self, row, col, direction):
+    def move_object(self, position, direction):
         if direction == Direction.RIGHT:
-            self.world[row][col + 1].object = self.world[row][col].object
-            self.world[row][col].object = None
+            self.world[position[0]][position[1] + 1].object = self.world[position[0]][position[1]].object
+            self.world[position[0]][position[1]].object = None
         elif direction == Direction.LEFT:
-            self.world[row][col - 1].object = self.world[row][col].object
-            self.world[row][col].object = None
+            self.world[position[0]][position[1] - 1].object = self.world[position[0]][position[1]].object
+            self.world[position[0]][position[1]].object = None
         elif direction == Direction.UP:
-            self.world[row - 1][col].object = self.world[row][col].object
-            self.world[row][col].object = None
+            self.world[position[0] - 1][position[1]].object = self.world[position[0]][position[1]].object
+            self.world[position[0]][position[1]].object = None
         elif direction == Direction.DOWN:
-            self.world[row + 1][col].object = self.world[row][col].object
-            self.world[row][col].object = None
+            self.world[position[0] + 1][position[1]].object = self.world[position[0]][position[1]].object
+            self.world[position[0]][position[1]].object = None
 
     def add_object_to_cell(self, object, row, col):
         self.world[row][col].object = object
 
-    def remove_game_object(self, row, col):
-        self.world[row][col].object = None
+    def remove_game_object(self, position):
+        self.world[position[0]][position[1]].object = None
 
-    def remove_game_object(self, row, col, direction):
-        cell = self.get_adjacent_cell(row, col, direction)
+    def remove_game_object(self, position, direction):
+        cell = self.get_adjacent_cell(position[0], position[1], direction)
         cell.obj = None
 
     def can_pass(self):
