@@ -11,6 +11,9 @@ class Enemy(GameObject):
     def take_damage(self, amount):
         self.hp -= amount
 
+    def get_action(self):
+        return EnemyBehavior.MOVE
+
     def get_movement(self, position, world, player_position):
 
         if player_position[1] > position[1] and position[1] < NUM_COLS - 1:

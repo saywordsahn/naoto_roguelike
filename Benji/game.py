@@ -30,10 +30,16 @@ class Game:
     def enemy_turn(self):
 
         for cell in self.world.get_cells_with_enemies():
-            direction = cell.object.get_movement(cell.position, self.world, self.player.position)
 
-            if direction is not None:
-                self.world.move_object(cell.position, direction)
+            # TODO: attack player if adjacent
+            enemy = cell.object
+
+            if enemy.get_action() == EnemyBehavior.MOVE:
+
+                direction = enemy.get_movement(cell.position, self.world, self.player.position)
+
+                if direction is not None:
+                    self.world.move_object(cell.position, direction)
 
 
 
