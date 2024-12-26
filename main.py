@@ -71,35 +71,15 @@ class Student:
 
 player = Player()
 
-rat = Rat()
-spider = Spider()
 
-armor = Armor (50, 50)
-sword = Sword(75, 75)
-health_pot = HealthPot(300, 75)
-game_world = World()
+
+game_world = World(player)
 
 
 while True:
     screen.fill(0)
 
-    game_world.draw_tiles(screen)
-    game_world.draw_enemies(screen)
-    screen.blit(player.image, player.position)
-
-
-    # screen.blit(player_armor1, (300, 300))
-    # screen.blit(player_armor2, (300, 350))
-    # screen.blit(player_armor3, (300, 400))
-    # screen.blit(player_armor4, (300, 400))
-
-    # enemies
-
-
-    # items
-    armor.draw(screen)
-    sword.draw(screen)
-    health_pot.draw(screen)
+    game_world.draw_world(screen)
 
 
     for event in pygame.event.get():
@@ -107,16 +87,22 @@ while True:
             pygame.quit()
             exit(0)
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-            player.move_right()
+        if event.type == pygame.KEYDOWN and (event.key == pygame.K_d or event.key == pygame.K_RIGHT):
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_a:
+            enemy = game_world.enemies[player.position[0]][player.position[1] + 1]
+            print(enemy)
+            if enemy is not None:
+                enemy.hp -= player.ad
+            else:
+                player.move_right()
+
+        if event.type == pygame.KEYDOWN and (event.key == pygame.K_a or event.key == pygame.K_LEFT):
             player.move_left()
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
+        if event.type == pygame.KEYDOWN and (event.key == pygame.K_w or event.key == pygame.K_UP):
             player.move_up()
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+        if event.type == pygame.KEYDOWN and (event.key == pygame.K_s or event.key == pygame.K_DOWN):
             player.move_down()
 
 

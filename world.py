@@ -2,12 +2,18 @@ import pygame
 import random as rand
 from settings import *
 from enemies import *
+from player import *
+
+
+
+
 
 class World:
 
-    def __init__(self):
+    def __init__(self, player):
         self.tiles = []
         self.enemies = []
+        self.player = player
         self.dirt = pygame.image.load('./dungeon/Tiles/tile_0048.png')
         self.dirt = pygame.transform.scale(self.dirt, (64, 64))
 
@@ -59,3 +65,13 @@ class World:
             for j in range(NUM_COLS):
                 if self.enemies[i][j] is not None:
                     screen.blit(self.enemies[i][j].image, (j * CELL_SIZE, i * CELL_SIZE))
+
+    def draw_player(self, screen):
+        position = (self.player.position[1] * 64, self.player.position[0] * 64)
+        screen.blit(self.player.image, position)
+
+    def draw_world(self, screen):
+        self.draw_tiles(screen)
+        self.draw_player(screen)
+        self.draw_enemies(screen)
+
