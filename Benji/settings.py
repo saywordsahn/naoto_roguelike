@@ -24,6 +24,10 @@ class Direction(Enum):
     UP = 2,
     DOWN = 3
 
+class PlayerState(Enum):
+    ALIVE = 0,
+    DEAD = 1
+
 class EnemyBehavior(Enum):
     MOVE = 0,
     ATTACK = 1

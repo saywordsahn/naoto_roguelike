@@ -18,7 +18,7 @@ class Game:
                 self.player.pick_up_item(obj)
                 self.move_player(direction)
             elif obj.type == Type.ENEMY:
-                obj.take_damage(self.player.attack_damage)
+                obj.take_damage(self.player.ad)
                 if obj.hp <= 0:
                     self.world.remove_game_object(self.player.position, direction)
                     self.move_player(direction)
@@ -33,13 +33,18 @@ class Game:
 
             # TODO: attack player if adjacent
             enemy = cell.object
+            action = enemy.get_action(cell.position, self.player.position)
 
-            if enemy.get_action() == EnemyBehavior.MOVE:
+            if action == EnemyBehavior.MOVE:
 
                 direction = enemy.get_movement(cell.position, self.world, self.player.position)
 
                 if direction is not None:
                     self.world.move_object(cell.position, direction)
+            elif action == EnemyBehavior.ATTACK:
+
+                self.player.take_damage(enemy.ad)
+                self.ui.player_hp = self.player.hp
 
 
 

@@ -10,7 +10,8 @@ class Player(GameObject):
         self.position = PLAYER_START
         self.hp = PLAYER_STARTING_HP
         self.armor_level = 0
-        self.attack_damage = 1
+        self.ad = 1
+        self.state = PlayerState.ALIVE
 
         player_sword0 = pygame.image.load('../dungeon/Tiles/tile_0107.png')
         player_sword0 = pygame.transform.scale(player_sword0, (64, 64))
@@ -79,3 +80,9 @@ class Player(GameObject):
         screen.blit(self.player.image, position)
         if self.weapon is not None:
             screen.blit(self.weapon, position)
+
+    def take_damage(self, amount):
+        self.hp -= amount
+
+        if self.hp <= 0:
+            self.state = PlayerState.DEAD

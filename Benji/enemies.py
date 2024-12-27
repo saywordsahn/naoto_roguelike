@@ -7,11 +7,18 @@ class Enemy(GameObject):
     def __init__(self, image_location):
         GameObject.__init__(self, image_location, Type.ENEMY)
         self.hp = 0
+        self.ad = 0
 
     def take_damage(self, amount):
         self.hp -= amount
 
-    def get_action(self):
+    def get_action(self, position, player_position):
+
+        print(position)
+        print(player_position)
+        if abs(position[0] - player_position[0]) <= 1 or abs(position[1] - player_position[1]) <= 1:
+            return EnemyBehavior.ATTACK
+
         return EnemyBehavior.MOVE
 
     def get_movement(self, position, world, player_position):
