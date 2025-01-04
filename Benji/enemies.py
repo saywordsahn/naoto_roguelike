@@ -14,9 +14,7 @@ class Enemy(GameObject):
 
     def get_action(self, position, player_position):
 
-        print(position)
-        print(player_position)
-        if abs(position[0] - player_position[0]) <= 1 or abs(position[1] - player_position[1]) <= 1:
+        if abs(position[0] - player_position[0]) <= 1 and abs(position[1] - player_position[1]) <= 1:
             return EnemyBehavior.ATTACK
 
         return EnemyBehavior.MOVE
