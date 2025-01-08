@@ -1,6 +1,6 @@
 import pygame
 import settings
-from Benji.settings import CELL_SIZE
+from settings import CELL_SIZE
 
 
 class GameObject:

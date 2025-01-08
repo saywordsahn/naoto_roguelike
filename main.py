@@ -76,6 +76,21 @@ player = Player()
 game_world = World(player)
 
 
+def enemy_turn():
+    # TODO: enemy must check if it can move
+    enemies = game_world.enemies
+    for i in range(len(enemies)):
+        for j in range(len(enemies[i])):
+            enemy = enemies[i][j]
+
+            if enemy is not None:
+
+                # if enemy is below player
+                if player.position[0] < i:
+                    # move enemy up
+                    enemies[i - 1][j] = enemy
+                    enemies[i][j] = None
+
 while True:
     screen.fill(0)
 
@@ -90,20 +105,36 @@ while True:
         if event.type == pygame.KEYDOWN and (event.key == pygame.K_d or event.key == pygame.K_RIGHT):
 
             enemy = game_world.enemies[player.position[0]][player.position[1] + 1]
-            print(enemy)
             if enemy is not None:
                 enemy.hp -= player.ad
+
+                if enemy.hp <= 0:
+                    game_world.enemies[player.position[0]][player.position[1] + 1] = None
             else:
                 player.move_right()
 
+            enemy_turn()
+
         if event.type == pygame.KEYDOWN and (event.key == pygame.K_a or event.key == pygame.K_LEFT):
-            player.move_left()
+
+            enemy = game_world.enemies[player.position[0]][player.position[1] - 1]
+            if enemy is not None:
+                enemy.hp -= player.ad
+            else:
+                player.move_left()
+
+            enemy_turn()
 
         if event.type == pygame.KEYDOWN and (event.key == pygame.K_w or event.key == pygame.K_UP):
             player.move_up()
 
+            enemy_turn()
+
+
         if event.type == pygame.KEYDOWN and (event.key == pygame.K_s or event.key == pygame.K_DOWN):
             player.move_down()
+            enemy_turn()
+
 
 
     pygame.display.update()
